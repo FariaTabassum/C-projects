@@ -1,0 +1,109 @@
+﻿@model System.Data.DataTable
+@using System.Data;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles
+{
+
+    <link href="~/Content/DataTables/css/jquery.dataTables.css" rel="stylesheet" />
+<style>
+    .tableData {
+        border-left: solid 1px #D8C3C3;
+        border-top: solid 1px #D8C3C3;
+    }
+
+        .tableData tr {
+        }
+
+        .tableData td, tableData th {
+            border-right: solid 1px #D8C3C3;
+            border-bottom: solid 1px #D8C3C3;
+            text-align: left;
+            padding: 5px;
+        }
+
+        .tableData td {
+        }
+
+        .tableData th {
+            background-color: #FAFAFA;
+            padding: 7px 5px;
+            border-bottom-color: #9C9C9C;
+        }
+</style>
+
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "DepartmentForm", @class = "form-demo" }))
+{
+
+
+    <fieldset>
+        <legend>Department Data Table View</legend>
+        <div>
+            @if (Model != null)
+{
+    <table id="myTable" class="tableData">
+        <thead>
+            <tr>
+                @foreach (System.Data.DataColumn col in Model.Columns)
+                {
+                    <th>@col.Caption</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr>
+                    @foreach (var cell in row.ItemArray)
+                    {
+
+                        if (cell != null)
+                        {
+                            <td>@cell.ToString()</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+        </div>
+    </fieldset>
+}
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+
+    <script>
+        var table = $("#myTable").DataTable();
+        $(document).ready(function () {
+
+        })
+    </script>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

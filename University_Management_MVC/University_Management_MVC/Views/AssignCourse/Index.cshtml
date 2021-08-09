@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<form method="POST" id="myForm">
+    <fieldset>
+        <legend>Assign Course To Teacher</legend>
+    </fieldset>
+    <table>
+        <tr>
+            <td>
+                <label for="departmentId">Select Department</label>
+            </td>
+            <td>
+                <select name="departmentId" id="departmentId">
+                    <option value="">Select...</option>
+                    @foreach (var department in ViewBag.Departments)
+                    {
+                        <option value="@department.DepartmentId">@department.Name</option>
+                    }
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><label for="studentId">Select Student</label></td>
+            <td>
+                <select name="studentId" id="studentId">
+                    <option value="">--Select student--</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Submit" class="btn btn-default" /></td>
+        </tr>
+    </table>
+</form>
+
+@section scripts
+{
+<script>
+        
+        $(document).ready(function () {
+            $("#departmentId").change(function () {
+                var deptId = $("#departmentId").val();
+
+                var inputObj = { departmentId: deptId };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDepartmentDatatable", "Department")',
+                    //url: '/Department/GetStudentsByDepartmentId',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(inputObj),
+                    success: function (response) {
+                        $.each(response, function(key, value) {
+                          //  $("#departmentId").append('<option value="' + value.Id + '">' + value.Code + '">' + value.Name +' </option>');
+
+                            $("#tableBody").append('<tr><td>' + value.Code + '</td><td>' + value.Name + '</td></tr>');
+
+                            table.row.add([
+                                value.Code,
+                                value.Name
+                            ]).draw(false);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+}

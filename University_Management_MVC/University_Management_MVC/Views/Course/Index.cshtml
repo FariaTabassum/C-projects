@@ -1,0 +1,253 @@
+﻿@model University_Management_MVC.Models.Course
+
+@{
+    ViewBag.Title = "Index";
+    List<University_Management_MVC.Models.Department> departments = ViewBag.Departments;
+
+    List<University_Management_MVC.Models.Semester> semesters = ViewBag.Semesters;
+}
+
+@section styles
+{
+    <style>
+        label.error {
+            color: red;
+        }
+
+        input.error {
+            border: 1px solid red;
+        }
+
+        .input-validation-error {
+            border: 1px solid #b94a48;
+        }
+
+        .field-validation-error {
+            color: #b94a48;
+        }
+    </style>
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "saveCourseForm", @class = "form-demo" }))
+{
+    <fieldset>
+        <legend>Save Course</legend>
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-horizontal" id="saveCourseForm" method="POST">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="Code">Code:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Code" name="Code" placeholder="Enter Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="Name">Name:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="Credit">Credit:</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="Credit" name="Credit" min="0.4" max="5.1" placeholder="Enter Credit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="Description">Description:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Description" name="Description" placeholder="Enter Description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="CategoryId">Department:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="DepartmentId" name="DepartmentId">
+                                <option value="">--Select Department--</option>
+                                @foreach (University_Management_MVC.Models.Department department in departments)
+                                {
+                                    <option value="@department.Id">@department.Name</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="SemesterId">Semester:</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="SemesterId" name="SemesterId">
+                                <option value="">--Select Semester--</option>
+                                @foreach (University_Management_MVC.Models.Semester semester in semesters)
+                                {
+                                    <option value="@semester.Id">@semester.Name</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Save</button>
+                        </div>
+                    </div>
+                    @*@if (ViewBag.Message == "Infromation save successfully")
+                    {
+                        <div class="alert alert-success">
+                            @ViewBag.Message
+                        </div>
+                    }
+                    else if (ViewBag.Message == "Sorry,Department code already exists" || ViewBag.Message == "Sorry,Course name already exists" || ViewBag.Message == "Information faield to save")
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Message
+                        </div>
+                    }*@
+
+                </form>
+            </div>
+        </div>
+
+
+
+        @*<table>
+            <tr>
+                <td>@Html.LabelFor(m => m.Code)</td>
+                <td>@Html.TextBoxFor(m => m.Code)</td>
+                <td>@Html.ValidationMessageFor(m => m.Code)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Name)</td>
+                <td>@Html.TextBoxFor(m => m.Name)</td>
+                <td>@Html.ValidationMessageFor(m => m.Name)</td>
+            </tr>
+
+            <tr class="form-group">
+                <td><label for="Credit">Credit:</label></td>
+
+                <td>
+                    <input type="number" id="Credit" name="Credit" min="0.5" max="5.1">
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(m => m.Description)</td>
+                <td>@Html.TextAreaFor(m => m.Description)</td>
+                <td>@Html.ValidationMessageFor(m => m.Description)</td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(m => m.DepartmentId)</td>
+                <td>@Html.DropDownListFor(m => m.DepartmentId, new SelectList(ViewBag.Departments, "Value", "Text"))</td>
+                <td>@Html.ValidationMessageFor(m => m.DepartmentId)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.SemesterId)</td>
+                <td>@Html.DropDownListFor(m => m.SemesterId, new SelectList(ViewBag.Semesters, "Value", "Text"))</td>
+                <td>@Html.ValidationMessageFor(m => m.SemesterId)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Save" /></td>
+            </tr>
+
+        </table>*@
+        @if (ViewBag.Message == "Infromation save successfully")
+        {
+            <div class="alert alert-success">
+                @ViewBag.Message
+            </div>
+        }
+        else if (ViewBag.Message == "Sorry,Department code already exists" || ViewBag.Message == "Sorry,Course name already exists" || ViewBag.Message == "Information faield to save")
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Message
+            </div>
+        }
+    </fieldset>
+}
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(function () {
+
+        $("#saveCourseForm").validate({
+            rules: {
+                Code: {
+                    required: true,
+                    minlength: 5
+                },
+                Name: "required",
+                Credit: {
+                    required: true,
+                    number: true,
+                    digits:true
+                },
+                Description: "required",
+                DepartmentId: "required",
+                SemesterId: "required"
+            },
+            messages: {
+                Code: {
+                    required: "Please inerst a code first!",
+                    minlength: "Code length must be at least 5 charchater long"
+                },
+                Name: "Please insert name first!",
+                Credit: {
+                    required: "Please insert code first!", 
+                    digits: "Credit length must be between 0.5 to 5"
+                },
+                Description: "Please insert description first!",
+                DepartmentId: "Please select department first!",
+                SemesterId: "Please select semester first!"
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<script>
+        $(function () {
+
+            $("#saveCourseForm").validate({
+                rules: {
+
+                    Credit: {
+                        required: true,
+                        number: true,
+                        digits: true
+
+                    }
+
+                },
+                messages: {
+
+
+                    Credit: {
+                        required: "Please insert credit first!",
+                        number: "Credit must be a number",
+                        length: "Credit length must be between 0.5 to 5"
+                    }
+                }
+            });
+        });
+    </script>*@
+
+
+}
+

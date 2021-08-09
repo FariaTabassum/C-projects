@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "UnAllocat All Course";
+    Layout = "~/Views/Shared/_MasterLayout.cshtml";
+}
+
+
+<div class="form-horizontal  main-center">
+    @if (ViewBag.Message != null)
+    {
+        <div>
+            <label class="form-group input-group alert alert-info">@ViewBag.Message</label>
+            <br />
+        </div>
+
+    }
+    <!--Name , Action, Controller-->
+    @Html.ActionLink("UnAssign All Course", "UnAssignCourse", "UnassignAllCourses", new {confirm = true},
+        new {onclick = "return confirm('Are you sure to unassign all courses?')", @class = "btn btn-danger"})
+
+
+
+</div>
